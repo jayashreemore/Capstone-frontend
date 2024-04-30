@@ -8,17 +8,17 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import LogIn from "./pages/LogIn";
-import AdminDashboard from "./admin/AdminDashboard.js";
-import CreatePost from "./admin/CreatePost.js";
-import EditPost from "./admin/EditPost.js";
-import EditUser from "./admin/EditUser.js";
-import AdminRoute from "./components/AdminRoute.js";
-import UserRoute from "./components/UserRoute.js";
+import AdminDashboard from "./admin/AdminDashboard.jsx";
+import CreatePost from "./admin/CreatePost.jsx";
+import EditPost from "./admin/EditPost.jsx";
+import EditUser from "./admin/EditUser.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
+import UserRoute from "./components/UserRoute.jsx";
 import Layout from "./admin/global/Layout.js";
 import UserDashboard from "./user/UserDashboard.js";
-import SinglePost from "./pages/SinglePost.js";
+import SinglePost from "./pages/Singlepost.js";
 import Register from "./pages/Register.js";
-import UserManagement from "./admin/UserManagement";
+import UserManagement from "./admin/UserManagement.jsx";
 
 //HOC
 const AdminDashboardHOC = Layout(AdminDashboard);
