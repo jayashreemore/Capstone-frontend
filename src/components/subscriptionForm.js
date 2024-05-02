@@ -30,13 +30,13 @@ const SubscriptionForm = () => {
                     Get Email Updates from Jaya's Blog
                 </Typography>
                 <Typography gutterBottom sx={{ textAlign: "center" }}>
-                    Jays's Blog shares more in her emails. Get travel tips, exclusive
-                    stories, and more.
+                    Jayas's Blog shares more in her emails. Get Disney movie informaiton,
+                    exclusive stories, and more.
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <TextField
-                            label="Enter your email"
+                            label="Enter your E-mail"
                             variant="outlined"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}

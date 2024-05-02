@@ -46,21 +46,26 @@ const AdminDashboard = () => {
     const columns = [
         {
             field: "_id",
-            headerName: "Post ID",
+            headerName: "Movie ID",
             width: 150,
             editable: true,
         },
         {
             field: "title",
-            headerName: "Post title",
+            headerName: "Movie name",
             width: 150,
         },
-
         {
             field: "image",
             headerName: "Image",
             width: 150,
-            renderCell: (params) => <img width="40%" src={params.row.image.url} />,
+            renderCell: (params) => (
+                <img
+                    width="40%"
+                    src={params.row.image.url}
+                    alt={params.row.image.alt}
+                />
+            ),
         },
         {
             field: "likes",
@@ -118,7 +123,7 @@ const AdminDashboard = () => {
     return (
         <Box>
             <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
-                Posts
+                Movies Information
             </Typography>
             <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
                 <Button variant="contained" color="success" startIcon={<AddIcon />}>
@@ -126,7 +131,7 @@ const AdminDashboard = () => {
                         style={{ color: "white", textDecoration: "none" }}
                         to="/admin/post/create"
                     >
-                        Create Post
+                        Create movie
                     </Link>{" "}
                 </Button>
             </Box>

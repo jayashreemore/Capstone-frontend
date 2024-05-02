@@ -8,14 +8,22 @@ import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { modules } from "../components/moduleToolbar";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const validationSchema = yup.object({
     title: yup
-        .string("Add a post title")
-        .min(4, "text content should havea minimum of 4 characters ")
-        .required("Post title is required"),
+        .string("Add a Movie name")
+        .min(4, "movine name should have a minimum of 4 characters")
+        .required("Movie name is required"),
+    prince: yup
+        .string("Add a prince name")
+        .min(4, "Prince name should have a minimum of 4 characters")
+        .required("Prince name is required"),
+    princess: yup
+        .string("Add a princess name")
+        .min(4, "Princess name should have a minimum of 4 characters")
+        .required("Princess name is required"),
     content: yup
         .string("Add text content")
         .min(10, "text content should havea minimum of 10 characters ")
@@ -24,11 +32,6 @@ const validationSchema = yup.object({
 
 const EditPost = () => {
     const { id } = useParams();
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [image, setImage] = useState("");
-    const [imagePreview, setImagePreview] = useState("");
-
     const navigate = useNavigate();
 
     const {
@@ -41,8 +44,10 @@ const EditPost = () => {
         setFieldValue,
     } = useFormik({
         initialValues: {
-            title,
-            content,
+            title: "",
+            prince: "",
+            princess: "",
+            content: "",
             image: "",
         },
 
@@ -50,21 +55,19 @@ const EditPost = () => {
         enableReinitialize: true,
         onSubmit: (values, actions) => {
             updatePost(values);
-            //alert(JSON.stringify(values, null, 2));
             actions.resetForm();
         },
     });
 
     //show post by Id
     const singlePostById = async () => {
-        // console.log(id)
         try {
             const { data } = await axios.get(`/api/post/${id}`);
-            console.log(data);
-            setTitle(data.posts.title);
-            setContent(data.posts.content);
-            setImagePreview(data.posts.image.url);
-            console.log("single post admin", data.posts);
+            setFieldValue("title", data.posts.title);
+            setFieldValue("prince", data.posts.prince);
+            setFieldValue("princess", data.posts.princess);
+            setFieldValue("content", data.posts.content);
+            setFieldValue("image", data.posts.image.url);
         } catch (error) {
             console.log(error);
             toast.error(error);
@@ -73,13 +76,14 @@ const EditPost = () => {
 
     useEffect(() => {
         singlePostById();
+        // eslint-disable-next-line
     }, []);
 
     const updatePost = async (values) => {
         try {
             const { data } = await axios.put(`/api/update/post/${id}`, values);
             if (data.success === true) {
-                toast.success("post updated");
+                toast.success("movie updated");
                 navigate("/admin/dashboard");
             }
         } catch (error) {
@@ -93,19 +97,19 @@ const EditPost = () => {
             <Box sx={{ bgcolor: "white", padding: "20px 200px" }}>
                 <Typography variant="h5" sx={{ pb: 4 }}>
                     {" "}
-                    Edit post{" "}
+                    Edit movie{" "}
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                     <TextField
                         sx={{ mb: 3 }}
                         fullWidth
                         id="title"
-                        label="Post title"
+                        label="Movie name"
                         name="title"
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        placeholder="Post title"
+                        placeholder="Movie name"
                         value={values.title}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -113,13 +117,50 @@ const EditPost = () => {
                         helperText={touched.title && errors.title}
                     />
 
+                    <TextField
+                        sx={{ mb: 3 }}
+                        fullWidth
+                        id="prince"
+                        label="Prince name"
+                        name="prince"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        placeholder="Prince name"
+                        value={values.prince}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.prince && Boolean(errors.prince)}
+                        helperText={touched.prince && errors.prince}
+                    />
+
+                    <TextField
+                        sx={{ mb: 3 }}
+                        fullWidth
+                        id="princess"
+                        label="princess name"
+                        name="princess"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        placeholder="princess name"
+                        value={values.princess}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.princess && Boolean(errors.princess)}
+                        helperText={touched.princess && errors.princess}
+                    />
+
                     <Box sx={{ mb: 3 }}>
                         <ReactQuill
                             theme="snow"
-                            placeholder={"Write the post content..."}
+                            placeholder={"About movie story..."}
                             modules={modules}
                             value={values.content}
-                            onChange={(e) => setFieldValue("content", e)}
+                            onChange={(e) => {
+                                setFieldValue("content", e);
+                                return e;
+                            }}
                         />
                         <Box
                             component="span"
@@ -189,9 +230,7 @@ const EditPost = () => {
                                                 <Box>
                                                     <img
                                                         style={{ maxWidth: "100px" }}
-                                                        src={
-                                                            values.image === "" ? imagePreview : values.image
-                                                        }
+                                                        src={values.image}
                                                         alt=""
                                                     />
                                                 </Box>
@@ -208,9 +247,8 @@ const EditPost = () => {
                         variant="contained"
                         elevation={0}
                         sx={{ mt: 3, p: 1, mb: 2, borderRadius: "25px" }}
-                    // disabled={loading}
                     >
-                        Update post
+                        Update movie
                     </Button>
                 </Box>
             </Box>

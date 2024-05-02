@@ -24,6 +24,8 @@ const SinglePost = () => {
     const { userInfo } = useSelector((state) => state.signIn);
 
     const [title, setTitle] = useState("");
+    const [prince, setPrince] = useState("");
+    const [princess, setPrincess] = useState("");
     const [content, setContent] = useState("");
     const [image, setImage] = useState("");
     const [createdAt, setCreatedAt] = useState("");
@@ -38,6 +40,8 @@ const SinglePost = () => {
         try {
             const { data } = await axios.get(`/api/post/${id}`);
             setTitle(data.posts.title);
+            setPrince(data.posts.prince);
+            setPrincess(data.posts.princess);
             setContent(data.posts.content);
             setImage(data.posts.image.url);
             setCreatedAt(data.posts.createdAt);
@@ -94,6 +98,8 @@ const SinglePost = () => {
                                     </Avatar>
                                 }
                                 title={title}
+                                prince={prince}
+                                princess={princess}
                                 subheader={moment(createdAt).format("MMMM DD, YYYY")}
                             />
                             <CardMedia

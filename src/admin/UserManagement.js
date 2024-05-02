@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
+//import AddIcon from "@mui/icons-material/Add";
 import moment from "moment";
 import axios from "axios";
 import IconButton from "@mui/material/IconButton";
@@ -106,16 +106,7 @@ const UserManagement = () => {
       <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
         Users List
       </Typography>
-      <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-        <Button variant="contained" color="success" startIcon={<AddIcon />}>
-          <Link
-            style={{ color: "white", textDecoration: "none" }}
-            to="/admin/post/create"
-          >
-            Create User
-          </Link>{" "}
-        </Button>
-      </Box>
+      <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}></Box>
       <Paper sx={{ bgcolor: "white" }}>
         <Box sx={{ height: 400, width: "100%" }}>
           <DataGrid

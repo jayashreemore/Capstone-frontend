@@ -3,7 +3,7 @@ import PostCard from "../components/PostCard";
 import { Box, Container, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import SubscriptionForm from "../components/subscriptionForm";
+import SubscriptionForm from "../components/SubscriptionForm";
 import axios from "axios";
 import moment from "moment";
 import Loader from "../components/Loader";
@@ -48,6 +48,8 @@ const Home = () => {
                                         <PostCard
                                             id={post._id}
                                             title={post.title}
+                                            prince={post.prince}
+                                            princess={post.princess}
                                             content={post.content}
                                             image={post.image ? post.image.url : ""}
                                             subheader={moment(post.createdAt).format("MMMM DD, YYYY")}
